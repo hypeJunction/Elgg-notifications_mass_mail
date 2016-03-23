@@ -1,0 +1,28 @@
+{
+	"name": "hypejunction/notifications_mass_mail",
+	"version": "0.0.0",
+	"type": "elgg-plugin",
+	"description": "Mass Mail for Elgg",
+	"homepage": "http://hypejunction.com",
+	"keywords": [
+		"elgg", "plugin", "notifications", "mass mail", "bulk mail"
+	],
+	"license": "GPL-2.0",
+	"authors": [
+		{
+			"name": "Ismayil Khayredinov",
+			"email": "info@hypejunction.com"
+		}
+	],
+	"require": {
+		"php": ">=5.5",
+		"composer/installers": "1.*",
+		"hypejunction/mustache": "~1.0"
+	},
+	"autoload": {
+		"psr-0": {
+			"": "classes/"
+		}
+	}
+}
+
