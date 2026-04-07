@@ -11,34 +11,6 @@ use Elgg\Notifications\Event;
 use Elgg\Notifications\Notification;
 use hypeJunction\Notifications\MassMail;
 
-require_once __DIR__ . '/autoloader.php';
-
-elgg_register_event_handler('init', 'system', 'notifications_mass_mail_init');
-
-/**
- * Initialize
- * @return void
- */
-function notifications_mass_mail_init() {
-	elgg_register_route('mass_mail', [
-		'path' => '/mass_mail/{segments}',
-		'resource' => 'mass_mail',
-		'requirements' => ['segments' => '.+'],
-		'defaults' => ['segments' => ''],
-	]);
-
-	elgg_register_action('mass_mail/send', __DIR__ . '/actions/mass_mail/send.php');
-
-	elgg_register_plugin_hook_handler('container_permissions_check', 'object', 'notifications_mass_mail_permissions');
-
-	$subtype = MassMail::SUBTYPE;
-	elgg_register_plugin_hook_handler('get', 'subscriptions', 'notifications_mass_mail_get_subscriptions');
-	elgg_register_notification_event('object', $subtype, ['send']);
-	elgg_register_plugin_hook_handler('prepare', "notification:send:object:{$subtype}", 'notifications_mass_mail_prepare_notification');
-
-	elgg_register_plugin_hook_handler('register', 'menu:page', 'notifications_mass_mail_page_menu_setup');
-}
-
 /**
  * Filter container permissions
  *

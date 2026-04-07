@@ -28,7 +28,13 @@ if ($guid) {
 
 	$entity = new MassMail();
 	$entity->container_guid = $container_guid;
-	$entity->access_id = $container instanceof \ElggGroup ? $container->group_acl : ACCESS_LOGGED_IN;
+	$entity->access_id = ACCESS_LOGGED_IN;
+	if ($container instanceof \ElggGroup) {
+		$acl = $container->getOwnedAccessCollection('group_acl');
+		if ($acl) {
+			$entity->access_id = $acl->id;
+		}
+	}
 }
 
 $entity->title = $title;
