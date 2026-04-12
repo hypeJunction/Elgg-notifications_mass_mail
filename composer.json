@@ -1,6 +1,6 @@
 {
 	"name": "hypejunction/notifications_mass_mail",
-	"version": "2.0.0",
+	"version": "4.0.0",
 	"type": "elgg-plugin",
 	"description": "Mass Mail for Elgg",
 	"homepage": "http://hypejunction.com",
@@ -15,9 +15,9 @@
 		}
 	],
 	"require": {
-		"php": ">=7.0",
+		"php": ">=7.4",
 		"composer/installers": "~1.0 || ~2.0",
-		"hypejunction/mustache": "~2.0"
+		"hypejunction/mustache": "~4.0"
 	},
 	"autoload": {
 		"psr-0": {
