@@ -1,0 +1,94 @@
+<?php
+
+namespace NotificationsMassMail;
+
+use Elgg\IntegrationTestCase;
+use hypeJunction\Notifications\MassMail;
+
+/**
+ * Tests for MassMail entity class mapping, CRUD, and permissions.
+ */
+class MassMailEntityTest extends IntegrationTestCase {
+
+	public function up() {
+	}
+
+	public function down() {
+	}
+
+	public function getPluginID(): string {
+		return 'notifications_mass_mail';
+	}
+
+	public function testSubtypeConstant(): void {
+		$this->assertEquals('notification_mass_mail', MassMail::SUBTYPE);
+		$this->assertEquals('object', MassMail::TYPE);
+	}
+
+	public function testInitializeAttributesSetsSubtype(): void {
+		$entity = new MassMail();
+		$this->assertEquals(MassMail::SUBTYPE, $entity->getSubtype());
+	}
+
+	public function testEntityCanBeSavedAndLoaded(): void {
+		$user = $this->createUser();
+		$site = \elgg_get_site_entity();
+
+		$entity = new MassMail();
+		$entity->owner_guid = $user->guid;
+		$entity->container_guid = $site->guid;
+		$entity->access_id = ACCESS_LOGGED_IN;
+		$entity->title = 'Test subject';
+		$entity->description = 'Test body';
+		$entity->method = '_preferred';
+
+		$this->assertNotFalse($entity->save());
+		$guid = $entity->guid;
+
+		_elgg_services()->entityCache->delete($guid);
+		$loaded = get_entity($guid);
+
+		$this->assertInstanceOf(MassMail::class, $loaded);
+		$this->assertEquals('Test subject', $loaded->title);
+		$this->assertEquals('Test body', $loaded->description);
+		$this->assertEquals('_preferred', $loaded->method);
+
+		$entity->delete();
+	}
+
+	public function testEntityClassMappedForSubtype(): void {
+		$user = $this->createUser();
+		$entity = new MassMail();
+		$entity->owner_guid = $user->guid;
+		$entity->container_guid = \elgg_get_site_entity()->guid;
+		$entity->access_id = ACCESS_LOGGED_IN;
+		$entity->title = 'hello';
+		$entity->description = 'world';
+		$this->assertNotFalse($entity->save());
+
+		_elgg_services()->entityCache->delete($entity->guid);
+		$loaded = get_entity($entity->guid);
+		$this->assertInstanceOf(MassMail::class, $loaded);
+		$this->assertEquals('notification_mass_mail', $loaded->getSubtype());
+
+		$entity->delete();
+	}
+
+	public function testMethodMetadataPersists(): void {
+		$user = $this->createUser();
+		$entity = new MassMail();
+		$entity->owner_guid = $user->guid;
+		$entity->container_guid = \elgg_get_site_entity()->guid;
+		$entity->access_id = ACCESS_LOGGED_IN;
+		$entity->title = 't';
+		$entity->description = 'd';
+		$entity->method = 'email';
+		$this->assertNotFalse($entity->save());
+
+		_elgg_services()->entityCache->delete($entity->guid);
+		$loaded = get_entity($entity->guid);
+		$this->assertEquals('email', $loaded->method);
+
+		$entity->delete();
+	}
+}
