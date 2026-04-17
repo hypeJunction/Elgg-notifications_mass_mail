@@ -48,9 +48,10 @@ class PrepareNotificationHandler {
 			'params' => $notification->params,
 		];
 
-		$notification->subject = mustache()->render($object->title, $template_params);
+		$mustache = new \Mustache_Engine();
+		$notification->subject = $mustache->render($object->title, $template_params);
 		$notification->summary = $notification->subject;
-		$notification->body = mustache()->render($object->description, $template_params);
+		$notification->body = $mustache->render($object->description, $template_params);
 
 		return $notification;
 	}

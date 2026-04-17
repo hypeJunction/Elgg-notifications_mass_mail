@@ -42,18 +42,19 @@ class MassMailEntityTest extends IntegrationTestCase {
 		$entity->description = 'Test body';
 		$entity->method = '_preferred';
 
-		$this->assertNotFalse($entity->save());
-		$guid = $entity->guid;
-
-		_elgg_services()->entityCache->delete($guid);
-		$loaded = get_entity($guid);
+		elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded, &$guid) {
+			$this->assertNotFalse($entity->save());
+			$guid = $entity->guid;
+			_elgg_services()->entityCache->delete($guid);
+			$loaded = get_entity($guid);
+		});
 
 		$this->assertInstanceOf(MassMail::class, $loaded);
 		$this->assertEquals('Test subject', $loaded->title);
 		$this->assertEquals('Test body', $loaded->description);
 		$this->assertEquals('_preferred', $loaded->method);
 
-		$entity->delete();
+		elgg_call(ELGG_IGNORE_ACCESS, fn() => $entity->delete());
 	}
 
 	public function testEntityClassMappedForSubtype(): void {
@@ -64,14 +65,17 @@ class MassMailEntityTest extends IntegrationTestCase {
 		$entity->access_id = ACCESS_LOGGED_IN;
 		$entity->title = 'hello';
 		$entity->description = 'world';
-		$this->assertNotFalse($entity->save());
 
-		_elgg_services()->entityCache->delete($entity->guid);
-		$loaded = get_entity($entity->guid);
+		elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded) {
+			$this->assertNotFalse($entity->save());
+			_elgg_services()->entityCache->delete($entity->guid);
+			$loaded = get_entity($entity->guid);
+		});
+
 		$this->assertInstanceOf(MassMail::class, $loaded);
 		$this->assertEquals('notification_mass_mail', $loaded->getSubtype());
 
-		$entity->delete();
+		elgg_call(ELGG_IGNORE_ACCESS, fn() => $entity->delete());
 	}
 
 	public function testMethodMetadataPersists(): void {
@@ -83,12 +87,15 @@ class MassMailEntityTest extends IntegrationTestCase {
 		$entity->title = 't';
 		$entity->description = 'd';
 		$entity->method = 'email';
-		$this->assertNotFalse($entity->save());
 
-		_elgg_services()->entityCache->delete($entity->guid);
-		$loaded = get_entity($entity->guid);
+		elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded) {
+			$this->assertNotFalse($entity->save());
+			_elgg_services()->entityCache->delete($entity->guid);
+			$loaded = get_entity($entity->guid);
+		});
+
 		$this->assertEquals('email', $loaded->method);
 
-		$entity->delete();
+		elgg_call(ELGG_IGNORE_ACCESS, fn() => $entity->delete());
 	}
 }

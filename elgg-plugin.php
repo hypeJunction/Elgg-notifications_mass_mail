@@ -11,11 +11,7 @@ return [
 	'plugin' => [
 		'name' => 'Mass Mail',
 		'version' => '4.0.0',
-		'dependencies' => [
-			'mustache' => [
-				'position' => 'before',
-			],
-		],
+		'dependencies' => [],
 	],
 
 	'bootstrap' => Bootstrap::class,
