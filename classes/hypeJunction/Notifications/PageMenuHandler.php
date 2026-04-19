@@ -17,7 +17,7 @@ class PageMenuHandler {
 		$return = $hook->getValue();
 
 		if (\elgg_in_context('admin')) {
-			$return[] = \ElggMenuItem::factory([
+$return[] = \ElggMenuItem::factory([
 				'name' => 'mass_mail',
 				'parent_name' => 'administer_utilities',
 				'section' => 'administer',

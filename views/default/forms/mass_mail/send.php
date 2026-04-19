@@ -16,12 +16,12 @@ if (!$container->canWriteToContainer(0, 'object', \hypeJunction\Notifications\Ma
 }
 
 if ($container instanceof \ElggSite) {
-	$count = elgg_get_entities([
+$count = elgg_get_entities([
 		'type' => 'user',
 		'count' => true,
 	]);
 } else {
-	$count = elgg_get_entities([
+$count = elgg_get_entities([
 		'type' => 'user',
 		'relationship' => 'member',
 		'inverse_relationship' => true,

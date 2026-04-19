@@ -28,7 +28,7 @@ class ContainerPermissionsHandlerTest extends IntegrationTestCase {
 		$hook->method('getName')->willReturn('container_permissions_check');
 		$hook->method('getType')->willReturn('object');
 		$hook->method('getValue')->willReturn(true);
-		$hook->method('getParam')->willReturnCallback(function ($key, $default = null) use ($subtype, $container) {
+$hook->method('getParam')->willReturnCallback(function ($key, $default = null) use ($subtype, $container) {
 			if ($key === 'subtype') {
 				return $subtype;
 			}

@@ -42,7 +42,7 @@ class MassMailEntityTest extends IntegrationTestCase {
 		$entity->description = 'Test body';
 		$entity->method = '_preferred';
 
-		elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded, &$guid) {
+elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded, &$guid) {
 			$this->assertNotFalse($entity->save());
 			$guid = $entity->guid;
 			_elgg_services()->entityCache->delete($guid);
@@ -66,7 +66,7 @@ class MassMailEntityTest extends IntegrationTestCase {
 		$entity->title = 'hello';
 		$entity->description = 'world';
 
-		elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded) {
+elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded) {
 			$this->assertNotFalse($entity->save());
 			_elgg_services()->entityCache->delete($entity->guid);
 			$loaded = get_entity($entity->guid);
@@ -88,7 +88,7 @@ class MassMailEntityTest extends IntegrationTestCase {
 		$entity->description = 'd';
 		$entity->method = 'email';
 
-		elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded) {
+elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded) {
 			$this->assertNotFalse($entity->save());
 			_elgg_services()->entityCache->delete($entity->guid);
 			$loaded = get_entity($entity->guid);

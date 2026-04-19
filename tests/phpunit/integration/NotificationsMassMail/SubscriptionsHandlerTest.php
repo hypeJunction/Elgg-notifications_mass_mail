@@ -28,7 +28,7 @@ class SubscriptionsHandlerTest extends IntegrationTestCase {
 		$hook->method('getName')->willReturn('get');
 		$hook->method('getType')->willReturn('subscriptions');
 		$hook->method('getValue')->willReturn([]);
-		$hook->method('getParam')->willReturnCallback(function ($key, $default = null) use ($event) {
+$hook->method('getParam')->willReturnCallback(function ($key, $default = null) use ($event) {
 			if ($key === 'event') {
 				return $event;
 			}
