@@ -5,7 +5,11 @@
 	"description": "Mass Mail for Elgg",
 	"homepage": "http://hypejunction.com",
 	"keywords": [
-		"elgg", "plugin", "notifications", "mass mail", "bulk mail"
+		"elgg",
+		"plugin",
+		"notifications",
+		"mass mail",
+		"bulk mail"
 	],
 	"license": "GPL-2.0",
 	"authors": [
@@ -28,6 +32,11 @@
 	"autoload": {
 		"psr-0": {
 			"": "classes/"
+		}
+	},
+	"extra": {
+		"elgg-plugin": {
+			"id": "notifications_mass_mail"
 		}
 	}
 }
