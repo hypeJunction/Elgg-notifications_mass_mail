@@ -68,15 +68,17 @@ if (elgg_is_admin_logged_in()) {
 
 foreach ($fields as $opts) {
 	$type = elgg_extract('type', $opts);
-	echo elgg_view_input($type, $opts);
+	unset($opts['type']);
+	echo elgg_view_field(array_merge(['#type' => $type], $opts));
 }
 
-echo elgg_view_input('hidden', ['name' => 'guid', 'value' => $entity ? $entity->guid : '']);
-echo elgg_view_input('hidden', ['name' => 'container_guid', 'value' => $container->guid]);
+echo elgg_view_field(['#type' => 'hidden', 'name' => 'guid', 'value' => $entity ? $entity->guid : '']);
+echo elgg_view_field(['#type' => 'hidden', 'name' => 'container_guid', 'value' => $container->guid]);
 
 echo elgg_format_element('p', ['class' => 'elgg-text-help'], nl2br(elgg_echo('notifications:mass_mail:dynamic_fields')));
 
-echo elgg_view_input('submit', [
+echo elgg_view_field([
+	'#type' => 'submit',
 	'value' => $entity ? elgg_echo('notifications:mass_mail:resend') : elgg_echo('notifications:mass_mail:send'),
 	'field_class' => 'elgg-foot',
 ]);

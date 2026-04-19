@@ -21,16 +21,14 @@ return [
 			'type' => 'object',
 			'subtype' => 'notification_mass_mail',
 			'class' => MassMail::class,
-			'searchable' => false,
 		],
 	],
 
 	'routes' => [
-		'mass_mail' => [
-			'path' => '/mass_mail/{segments}',
-			'resource' => 'mass_mail',
-			'requirements' => ['segments' => '.+'],
-			'defaults' => ['segments' => ''],
+		'mass_mail:send' => [
+			'path' => '/mass_mail/send/{container_guid}',
+			'resource' => 'mass_mail/send',
+			'defaults' => ['container_guid' => 0],
 		],
 	],
 
