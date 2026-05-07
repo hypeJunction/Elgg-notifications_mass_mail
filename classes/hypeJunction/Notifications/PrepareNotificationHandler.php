@@ -6,6 +6,9 @@ use Elgg\Hook;
 use Elgg\Notifications\Notification;
 use Elgg\Notifications\SubscriptionNotificationEvent;
 
+/**
+ * PrepareNotificationHandler class.
+ */
 class PrepareNotificationHandler {
 
 	/**

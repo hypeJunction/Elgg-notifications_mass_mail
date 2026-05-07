@@ -4,6 +4,9 @@ namespace hypeJunction\Notifications;
 
 use Elgg\DefaultPluginBootstrap;
 
+/**
+ * Bootstrap class.
+ */
 class Bootstrap extends DefaultPluginBootstrap {
 
 	/**

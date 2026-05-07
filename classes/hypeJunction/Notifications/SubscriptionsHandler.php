@@ -4,6 +4,9 @@ namespace hypeJunction\Notifications;
 
 use Elgg\Hook;
 
+/**
+ * SubscriptionsHandler class.
+ */
 class SubscriptionsHandler {
 
 	/**
@@ -29,13 +32,13 @@ class SubscriptionsHandler {
 
 		$container = $mass_mail->getContainerEntity();
 		if ($container instanceof \ElggSite) {
-$recipients = \elgg_get_entities([
+			$recipients = \elgg_get_entities([
 				'type' => 'user',
 				'limit' => false,
 				'batch' => true,
 			]);
 		} else {
-$recipients = \elgg_get_entities([
+			$recipients = \elgg_get_entities([
 				'type' => 'user',
 				'relationship' => 'member',
 				'inverse_relationship' => true,
@@ -55,6 +58,7 @@ $recipients = \elgg_get_entities([
 						$enabled_methods[] = $m;
 					}
 				}
+
 				$return[$recipient->guid] = $enabled_methods;
 			} else {
 				$return[$recipient->guid] = [$method];

@@ -4,6 +4,9 @@ namespace hypeJunction\Notifications;
 
 use Elgg\Hook;
 
+/**
+ * ContainerPermissionsHandler class.
+ */
 class ContainerPermissionsHandler {
 
 	/**
