@@ -16,21 +16,33 @@ class MassMailEntityTest extends IntegrationTestCase {
 	public function down() {
 	}
 
-	public function getPluginID(): string {
+	/**
+     * @return string
+     */
+    public function getPluginID(): string {
 		return 'notifications_mass_mail';
 	}
 
-	public function testSubtypeConstant(): void {
+	/**
+     * @return void
+     */
+    public function testSubtypeConstant(): void {
 		$this->assertEquals('notification_mass_mail', MassMail::SUBTYPE);
 		$this->assertEquals('object', MassMail::TYPE);
 	}
 
-	public function testInitializeAttributesSetsSubtype(): void {
+	/**
+     * @return void
+     */
+    public function testInitializeAttributesSetsSubtype(): void {
 		$entity = new MassMail();
 		$this->assertEquals(MassMail::SUBTYPE, $entity->getSubtype());
 	}
 
-	public function testEntityCanBeSavedAndLoaded(): void {
+	/**
+     * @return void
+     */
+    public function testEntityCanBeSavedAndLoaded(): void {
 		$user = $this->createUser();
 		$site = \elgg_get_site_entity();
 
@@ -57,7 +69,10 @@ elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded, &$guid) {
 		elgg_call(ELGG_IGNORE_ACCESS, fn() => $entity->delete());
 	}
 
-	public function testEntityClassMappedForSubtype(): void {
+	/**
+     * @return void
+     */
+    public function testEntityClassMappedForSubtype(): void {
 		$user = $this->createUser();
 		$entity = new MassMail();
 		$entity->owner_guid = $user->guid;
@@ -78,7 +93,10 @@ elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded) {
 		elgg_call(ELGG_IGNORE_ACCESS, fn() => $entity->delete());
 	}
 
-	public function testMethodMetadataPersists(): void {
+	/**
+     * @return void
+     */
+    public function testMethodMetadataPersists(): void {
 		$user = $this->createUser();
 		$entity = new MassMail();
 		$entity->owner_guid = $user->guid;

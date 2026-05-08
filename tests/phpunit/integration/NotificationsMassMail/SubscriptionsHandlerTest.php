@@ -19,12 +19,19 @@ class SubscriptionsHandlerTest extends IntegrationTestCase {
 	public function down() {
 	}
 
-	public function getPluginID(): string {
+	/**
+     * @return string
+     */
+    public function getPluginID(): string {
 		return 'notifications_mass_mail';
 	}
 
-	protected function makeHook($event): Event {
-		$hook = $this->getMockBuilder(Event::class)->getMock();
+	/**
+     * @param mixed $event
+     * @return Event
+     */
+    protected function makeHook($event): Event {
+		$hook = $this->getMockBuilder(Event::class)->disableOriginalConstructor()->getMock();
 		$hook->method('getName')->willReturn('get');
 		$hook->method('getType')->willReturn('subscriptions');
 		$hook->method('getValue')->willReturn([]);
@@ -37,13 +44,19 @@ $hook->method('getParam')->willReturnCallback(function ($key, $default = null) u
 		return $hook;
 	}
 
-	public function testReturnsVoidWhenNoEvent(): void {
+	/**
+     * @return void
+     */
+    public function testReturnsVoidWhenNoEvent(): void {
 		$handler = new SubscriptionsHandler();
 		$hook = $this->makeHook(null);
 		$this->assertNull($handler($hook));
 	}
 
-	public function testReturnsVoidWhenObjectIsNotMassMail(): void {
+	/**
+     * @return void
+     */
+    public function testReturnsVoidWhenObjectIsNotMassMail(): void {
 		$handler = new SubscriptionsHandler();
 
 		$other = $this->createObject(['subtype' => 'blog']);
@@ -57,13 +70,15 @@ $hook->method('getParam')->willReturnCallback(function ($key, $default = null) u
 		$this->assertNull($handler($hook));
 	}
 
-	public function testSiteContainerReturnsAllUsersWithExplicitMethod(): void {
+	/**
+     * @return void
+     */
+    public function testSiteContainerReturnsAllUsersWithExplicitMethod(): void {
 		$handler = new SubscriptionsHandler();
 
 		$user = $this->createUser();
 
 		$mass_mail = $this->getMockBuilder(MassMail::class)
-			->disableOriginalConstructor()
 			->onlyMethods(['getContainerEntity'])
 			->getMock();
 		$mass_mail->method('getContainerEntity')->willReturn(\elgg_get_site_entity());
@@ -83,7 +98,10 @@ $hook->method('getParam')->willReturnCallback(function ($key, $default = null) u
 		$this->assertEquals(['email'], $result[$user->guid]);
 	}
 
-	public function testPreferredMethodUsesRecipientNotificationSettings(): void {
+	/**
+     * @return void
+     */
+    public function testPreferredMethodUsesRecipientNotificationSettings(): void {
 		$handler = new SubscriptionsHandler();
 
 		$user = $this->createUser();
@@ -92,7 +110,6 @@ $hook->method('getParam')->willReturnCallback(function ($key, $default = null) u
 		$user->setNotificationSetting('site', true);
 
 		$mass_mail = $this->getMockBuilder(MassMail::class)
-			->disableOriginalConstructor()
 			->onlyMethods(['getContainerEntity'])
 			->getMock();
 		$mass_mail->method('getContainerEntity')->willReturn(\elgg_get_site_entity());
@@ -113,7 +130,10 @@ $hook->method('getParam')->willReturnCallback(function ($key, $default = null) u
 		$this->assertIsArray($result[$user->guid]);
 	}
 
-	public function testGroupContainerOnlyTargetsMembers(): void {
+	/**
+     * @return void
+     */
+    public function testGroupContainerOnlyTargetsMembers(): void {
 		$handler = new SubscriptionsHandler();
 
 		$owner = $this->createUser();
@@ -123,7 +143,6 @@ $hook->method('getParam')->willReturnCallback(function ($key, $default = null) u
 		$group->join($member);
 
 		$mass_mail = $this->getMockBuilder(MassMail::class)
-			->disableOriginalConstructor()
 			->onlyMethods(['getContainerEntity'])
 			->getMock();
 		$mass_mail->method('getContainerEntity')->willReturn($group);

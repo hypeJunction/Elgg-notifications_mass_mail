@@ -146,7 +146,7 @@ SETTINGS_VALUES
         echo 'System cache reset and registration enabled.' . PHP_EOL;
 
         // Create testuser for integration/e2e tests.
-        elgg_get_session()->setLoggedInUser(get_user_by_username('admin'));
+        _elgg_services()->session_manager->setLoggedInUser(get_user_by_username('admin'));
         if (!get_user_by_username('testuser')) {
             \$user = new ElggUser();
             \$user->username = 'testuser';
@@ -166,7 +166,7 @@ SETTINGS_VALUES
     chown -R www-data:www-data /var/www/data/cache
 
     touch /var/www/html/.elgg-installed
-    echo "Elgg 4.x setup complete."
+    echo "Elgg 5.x setup complete."
 fi
 
 echo "Starting Apache..."
