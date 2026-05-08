@@ -2,7 +2,7 @@
 
 namespace NotificationsMassMail;
 
-use Elgg\Hook;
+use Elgg\Event;
 use Elgg\IntegrationTestCase;
 use hypeJunction\Notifications\MassMail;
 use hypeJunction\Notifications\SubscriptionsHandler;
@@ -23,8 +23,8 @@ class SubscriptionsHandlerTest extends IntegrationTestCase {
 		return 'notifications_mass_mail';
 	}
 
-	protected function makeHook($event): Hook {
-		$hook = $this->getMockBuilder(Hook::class)->getMock();
+	protected function makeHook($event): Event {
+		$hook = $this->getMockBuilder(Event::class)->getMock();
 		$hook->method('getName')->willReturn('get');
 		$hook->method('getType')->willReturn('subscriptions');
 		$hook->method('getValue')->willReturn([]);

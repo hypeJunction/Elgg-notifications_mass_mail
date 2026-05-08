@@ -2,7 +2,7 @@
 
 namespace NotificationsMassMail;
 
-use Elgg\Hook;
+use Elgg\Event;
 use Elgg\IntegrationTestCase;
 use hypeJunction\Notifications\PageMenuHandler;
 
@@ -22,8 +22,8 @@ class PageMenuHandlerTest extends IntegrationTestCase {
 		return 'notifications_mass_mail';
 	}
 
-	protected function makeHook(array $return): Hook {
-		$hook = $this->getMockBuilder(Hook::class)->getMock();
+	protected function makeHook(array $return): Event {
+		$hook = $this->getMockBuilder(Event::class)->getMock();
 		$hook->method('getName')->willReturn('register');
 		$hook->method('getType')->willReturn('menu:page');
 		$hook->method('getValue')->willReturn($return);

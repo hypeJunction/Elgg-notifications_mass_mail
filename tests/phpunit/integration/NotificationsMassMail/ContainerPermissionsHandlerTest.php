@@ -2,7 +2,7 @@
 
 namespace NotificationsMassMail;
 
-use Elgg\Hook;
+use Elgg\Event;
 use Elgg\IntegrationTestCase;
 use hypeJunction\Notifications\ContainerPermissionsHandler;
 use hypeJunction\Notifications\MassMail;
@@ -23,8 +23,8 @@ class ContainerPermissionsHandlerTest extends IntegrationTestCase {
 		return 'notifications_mass_mail';
 	}
 
-	protected function makeHook(string $subtype, $container): Hook {
-		$hook = $this->getMockBuilder(Hook::class)->getMock();
+	protected function makeHook(string $subtype, $container): Event {
+		$hook = $this->getMockBuilder(Event::class)->getMock();
 		$hook->method('getName')->willReturn('container_permissions_check');
 		$hook->method('getType')->willReturn('object');
 		$hook->method('getValue')->willReturn(true);
