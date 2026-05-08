@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Notifications;
 
-use Elgg\Hook;
+use Elgg\Event;
 
 /**
  * SubscriptionsHandler class.
@@ -12,11 +12,11 @@ class SubscriptionsHandler {
 	/**
 	 * Prepare recipients for mass mail
 	 *
-	 * @param Hook $hook Hook
+	 * @param Event $hook Event
 	 *
 	 * @return array|void
 	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $hook) {
 		$event = $hook->getParam('event');
 		if (!$event) {
 			return;

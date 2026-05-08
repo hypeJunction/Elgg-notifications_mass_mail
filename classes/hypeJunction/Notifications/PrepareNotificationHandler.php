@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Notifications;
 
-use Elgg\Hook;
+use Elgg\Event;
 use Elgg\Notifications\Notification;
 use Elgg\Notifications\SubscriptionNotificationEvent;
 
@@ -14,11 +14,11 @@ class PrepareNotificationHandler {
 	/**
 	 * Prepare notification
 	 *
-	 * @param Hook $hook Hook
+	 * @param Event $hook Event
 	 *
 	 * @return Notification|void
 	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $hook) {
 		$notification = $hook->getValue();
 		if (!$notification instanceof Notification) {
 			return;

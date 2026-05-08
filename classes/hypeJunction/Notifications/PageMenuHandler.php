@@ -2,7 +2,7 @@
 
 namespace hypeJunction\Notifications;
 
-use Elgg\Hook;
+use Elgg\Event;
 
 /**
  * PageMenuHandler class.
@@ -12,11 +12,11 @@ class PageMenuHandler {
 	/**
 	 * Setup page menu
 	 *
-	 * @param Hook $hook Hook
+	 * @param Event $hook Event
 	 *
 	 * @return \ElggMenuItem[]
 	 */
-	public function __invoke(Hook $hook) {
+	public function __invoke(Event $hook) {
 		$return = $hook->getValue();
 
 		if (\elgg_in_context('admin')) {

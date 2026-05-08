@@ -10,7 +10,7 @@ use hypeJunction\Notifications\SubscriptionsHandler;
 return [
 	'plugin' => [
 		'name' => 'Mass Mail',
-		'version' => '4.0.0',
+		'version' => '5.0.0',
 		'dependencies' => [],
 	],
 
@@ -36,7 +36,7 @@ return [
 		'mass_mail/send' => [],
 	],
 
-	'hooks' => [
+	'events' => [
 		'container_permissions_check' => [
 			'object' => [
 				ContainerPermissionsHandler::class => [],
