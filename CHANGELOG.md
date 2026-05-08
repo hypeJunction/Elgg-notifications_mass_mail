@@ -1,3 +1,23 @@
+<a name="5.0.0"></a>
+# 5.0.0 (2026-05-08)
+
+### Breaking Changes
+
+* **elgg:** raise minimum to Elgg 5.x (PHP 8.2+). Plugins on Elgg 4.x must stay on notifications_mass_mail 4.x.
+
+### Migration (4.x → 5.x)
+
+* **events:** `elgg-plugin.php` `hooks` key renamed to `events`.
+* **handlers:** all four handler classes updated to `\Elgg\Event` type hint (was `\Elgg\Hook`).
+* **docker:** stack updated to `php:8.2-apache`, `mysql:8.0`, `elgg/elgg 5.1.12`.
+* **tests:** PHPUnit mocks updated — `Event` needs `disableOriginalConstructor()`; `MassMail` mock uses constructor for proper `__set()`.
+
+### Dependency Updates
+
+* `elgg/elgg ^5.0`, PHP `>=8.2`, version bumped to `5.0.0`
+
+---
+
 <a name="4.0.0"></a>
 # 4.0.0 (2026-04-19)
 

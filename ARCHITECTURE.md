@@ -1,4 +1,4 @@
-# notifications_mass_mail — Architecture (Elgg 4.x)
+# notifications_mass_mail — Architecture (Elgg 5.x)
 
 ## Summary
 
@@ -23,7 +23,7 @@ notifications_mass_mail/
 │   ├── forms/mass_mail/send.php   # Send form (title, body, method select)
 │   ├── plugins/notifications_mass_mail/settings.php  # Plugin settings view
 │   └── resources/mass_mail/send.php  # Page resource — renders form with layout
-├── docker/                         # Per-plugin Elgg 4.x test stack
+├── docker/                         # Per-plugin Elgg 5.x test stack
 ├── tests/phpunit/integration/      # 21 PHPUnit integration tests
 └── tests/playwright/               # 6 Playwright e2e tests
 ```
@@ -36,9 +36,9 @@ notifications_mass_mail/
 
 Not searchable (no `capabilities.searchable` entry).
 
-## Hooks Registered
+## Events Registered
 
-| Hook name                                         | Type                                    | Handler                          |
+| Event name                                        | Type                                    | Handler                          |
 |---------------------------------------------------|-----------------------------------------|----------------------------------|
 | `container_permissions_check`                     | `object`                                | `ContainerPermissionsHandler`    |
 | `get`                                             | `subscriptions`                         | `SubscriptionsHandler`           |
@@ -74,6 +74,15 @@ with `actor`, `object`, `target`, `recipient`, and `sender` as template variable
 
 - `mustache/mustache ^2.0` — Mustache template engine for email bodies
 - No plugin dependencies declared
+
+## Migration Notes (4.x → 5.x)
+
+- `'hooks'` key renamed to `'events'` in `elgg-plugin.php`
+- All handler classes updated: `\Elgg\Hook` → `\Elgg\Event` type hint
+- Docker stack updated to `php:8.2-apache`, `mysql:8.0`, `elgg/elgg 5.1.12`
+- `ElggSession::setLoggedInUser()` replaced with `_elgg_services()->session_manager->setLoggedInUser()` in install script
+- PHPUnit tests adapted: `Elgg\Event` mocks need `disableOriginalConstructor()` (required constructor args); `MassMail` mocks use constructor so `__set()` works
+- Composer: `php >=8.2`, `elgg/elgg ^5.0`, version `5.0.0`
 
 ## Migration Notes (3.x → 4.x)
 
