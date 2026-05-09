@@ -1,4 +1,4 @@
-# notifications_mass_mail — Architecture (Elgg 6.x)
+# notifications_mass_mail — Architecture (Elgg 7.x)
 
 ## Summary
 
@@ -74,6 +74,13 @@ with `actor`, `object`, `target`, `recipient`, and `sender` as template variable
 
 - `mustache/mustache ^2.0` — Mustache template engine for email bodies
 - No plugin dependencies declared
+
+## Migration Notes (6.x → 7.x)
+
+- `elgg/elgg ~7.0.0`, `php >=8.3` in `composer.json`.
+- Docker test stack added for Elgg 7.x (docker/elgg7/) with PHP 8.3.
+- No breaking changes: no CSS Crush syntax, no direct `ElggObject` instantiation, no removed Elgg APIs.
+- No data migration needed.
 
 ## Migration Notes (5.x → 6.x)
 
