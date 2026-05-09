@@ -7,7 +7,7 @@ if ($entity instanceof \hypeJunction\Notifications\MassMail) {
 	$container = elgg_extract('container', $vars);
 }
 
-if (!$container instanceof ElggEntity) {
+if (!$container instanceof \ElggEntity) {
 	return;
 }
 
@@ -15,14 +15,14 @@ if (!$container->canWriteToContainer(0, 'object', \hypeJunction\Notifications\Ma
 	return;
 }
 
-if ($container instanceof ElggSite) {
+if ($container instanceof \ElggSite) {
 	$count = elgg_get_entities([
-		'types' => 'user',
+		'type' => 'user',
 		'count' => true,
 	]);
 } else {
-	$count = elgg_get_entities_from_relationship([
-		'types' => 'user',
+	$count = elgg_get_entities([
+		'type' => 'user',
 		'relationship' => 'member',
 		'inverse_relationship' => true,
 		'relationship_guid' => $container->guid,
@@ -37,28 +37,29 @@ $fields = [
 		'name' => 'title',
 		'type' => 'text',
 		'label' => elgg_echo('notifications:mass_mail:subject'),
-		'value' => elgg_extract('title', $vars, $entity->title),
+		'value' => elgg_extract('title', $vars, $entity ? $entity->title : ''),
 		'required' => true,
 	],
 	[
 		'name' => 'description',
 		'type' => 'plaintext',
 		'label' => elgg_echo('notifications:mass_mail:message'),
-		'value' => elgg_extract('description', $vars, $entity->description),
+		'value' => elgg_extract('description', $vars, $entity ? $entity->description : ''),
 		'required' => true,
-	]
+	],
 ];
 
 if (elgg_is_admin_logged_in()) {
-	$methods = array_keys(_elgg_services()->notifications->getMethods());
+	$methods = _elgg_services()->notifications->getMethods();
 	$method_options = ['_preferred' => elgg_echo('notifications:mass_mail:method:_preferred')];
 	foreach ($methods as $method) {
-		$method_options[$method] = elgg_echo("notification:method:$method");
+		$method_options[$method] = elgg_echo("notification:method:{$method}");
 	}
+
 	$fields[] = [
 		'type' => 'radio',
 		'name' => 'method',
-		'value' => elgg_extract('method', $vars, $entity->method),
+		'value' => elgg_extract('method', $vars, $entity ? $entity->method : '_preferred'),
 		'options' => array_flip($method_options),
 		'label' => elgg_echo('notifications:mass_mail:method'),
 		'required' => true,
@@ -67,23 +68,17 @@ if (elgg_is_admin_logged_in()) {
 
 foreach ($fields as $opts) {
 	$type = elgg_extract('type', $opts);
-	echo elgg_view_input($type, $opts);
+	unset($opts['type']);
+	echo elgg_view_field(array_merge(['#type' => $type], $opts));
 }
 
-echo elgg_view_input('hidden', [
-	'name' => 'guid',
-	'value' => $entity->guid,
-]);
-
-echo elgg_view_input('hidden', [
-	'type' => 'hidden',
-	'name' => 'container_guid',
-	'value' => $container->guid,
-]);
+echo elgg_view_field(['#type' => 'hidden', 'name' => 'guid', 'value' => $entity ? $entity->guid : '']);
+echo elgg_view_field(['#type' => 'hidden', 'name' => 'container_guid', 'value' => $container->guid]);
 
 echo elgg_format_element('p', ['class' => 'elgg-text-help'], nl2br(elgg_echo('notifications:mass_mail:dynamic_fields')));
 
-echo elgg_view_input('submit', [
-	'value' => ($entity) ? elgg_echo('notifications:mass_mail:resend') : elgg_echo('notifications:mass_mail:send'),
+echo elgg_view_field([
+	'#type' => 'submit',
+	'value' => $entity ? elgg_echo('notifications:mass_mail:resend') : elgg_echo('notifications:mass_mail:send'),
 	'field_class' => 'elgg-foot',
 ]);
