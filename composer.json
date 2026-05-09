@@ -5,7 +5,11 @@
 	"description": "Mass Mail for Elgg",
 	"homepage": "http://hypejunction.com",
 	"keywords": [
-		"elgg", "plugin", "notifications", "mass mail", "bulk mail"
+		"elgg",
+		"plugin",
+		"notifications",
+		"mass mail",
+		"bulk mail"
 	],
 	"license": "GPL-2.0",
 	"authors": [
@@ -16,7 +20,7 @@
 	],
 	"require": {
 		"php": ">=5.5",
-		"composer/installers": "1.*",
+		"composer/installers": "^1.0 || ^2.0",
 		"hypejunction/mustache": "~1.0"
 	},
 	"autoload": {
@@ -25,4 +29,3 @@
 		}
 	}
 }
-
