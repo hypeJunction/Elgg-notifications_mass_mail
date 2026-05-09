@@ -10,7 +10,7 @@ use hypeJunction\Notifications\SubscriptionsHandler;
 return [
 	'plugin' => [
 		'name' => 'Mass Mail',
-		'version' => '6.0.0',
+		'version' => '7.0.0',
 		'dependencies' => [],
 	],
 
