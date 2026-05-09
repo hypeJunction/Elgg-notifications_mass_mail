@@ -1,4 +1,4 @@
-# notifications_mass_mail — Architecture (Elgg 5.x)
+# notifications_mass_mail — Architecture (Elgg 6.x)
 
 ## Summary
 
@@ -23,7 +23,7 @@ notifications_mass_mail/
 │   ├── forms/mass_mail/send.php   # Send form (title, body, method select)
 │   ├── plugins/notifications_mass_mail/settings.php  # Plugin settings view
 │   └── resources/mass_mail/send.php  # Page resource — renders form with layout
-├── docker/                         # Per-plugin Elgg 5.x test stack
+├── docker/                         # Per-plugin Elgg 6.x test stack
 ├── tests/phpunit/integration/      # 21 PHPUnit integration tests
 └── tests/playwright/               # 6 Playwright e2e tests
 ```
@@ -74,6 +74,12 @@ with `actor`, `object`, `target`, `recipient`, and `sender` as template variable
 
 - `mustache/mustache ^2.0` — Mustache template engine for email bodies
 - No plugin dependencies declared
+
+## Migration Notes (5.x → 6.x)
+
+- `elgg/elgg ~6.1.0`, PHP `>=8.1`, added `ext-intl`
+- Added `docker/elgg6/` per-plugin test stack
+- No PHP API changes required — no AMD/RequireJS JS, no removed PHP functions
 
 ## Migration Notes (4.x → 5.x)
 
