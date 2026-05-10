@@ -14,3 +14,9 @@ Mass Mailer for Elgg
 ## To-Dos
 
  * Allow scheduling future mail outs
+
+## Compatibility
+
+| Plugin version | Elgg version |
+|---|---|
+| current | 7.x |
