@@ -1,4 +1,6 @@
 Mass Mailer for Elgg
+
+![Elgg 4.x](https://img.shields.io/badge/Elgg-4.x-orange.svg?style=flat-square)
 ====================
 ![Elgg 2.1](https://img.shields.io/badge/Elgg-2.1.x-orange.svg?style=flat-square)
 
