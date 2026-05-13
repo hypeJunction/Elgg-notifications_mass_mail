@@ -1,43 +1,43 @@
 {
-	"name": "hypejunction/notifications_mass_mail",
-	"version": "5.0.0",
-	"type": "elgg-plugin",
-	"description": "Mass Mail for Elgg",
-	"homepage": "https://github.com/hypeJunction/Elgg-notifications_mass_mail",
-	"keywords": [
-		"elgg",
-		"plugin",
-		"notifications",
-		"mass mail",
-		"bulk mail"
-	],
-	"license": "GPL-2.0",
-	"authors": [
-		{
-			"name": "Ismayil Khayredinov",
-			"email": "ismayil.khayredinov@gmail.com"
-		}
-	],
-	"require": {
-		"php": ">=8.1",
-		"ext-intl": "*",
-		"elgg/elgg": "~6.1.0",
-		"composer/installers": "^2.0",
-		"mustache/mustache": "^2.0"
-	},
-	"config": {
-		"allow-plugins": {
-			"composer/installers": true
-		}
-	},
-	"autoload": {
-		"psr-0": {
-			"": "classes/"
-		}
-	},
-	"extra": {
-		"elgg-plugin": {
-			"id": "notifications_mass_mail"
-		}
-	}
+    "name": "hypejunction/notifications_mass_mail",
+    "version": "6.0.0",
+    "type": "elgg-plugin",
+    "description": "Mass Mail for Elgg",
+    "homepage": "https://github.com/hypeJunction/Elgg-notifications_mass_mail",
+    "keywords": [
+        "elgg",
+        "plugin",
+        "notifications",
+        "mass mail",
+        "bulk mail"
+    ],
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Ismayil Khayredinov",
+            "email": "ismayil.khayredinov@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "ext-intl": "*",
+        "elgg/elgg": "~6.1.0",
+        "composer/installers": "^2.0",
+        "mustache/mustache": "^2.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    },
+    "autoload": {
+        "psr-0": {
+            "": "classes/"
+        }
+    },
+    "extra": {
+        "elgg-plugin": {
+            "id": "notifications_mass_mail"
+        }
+    }
 }
