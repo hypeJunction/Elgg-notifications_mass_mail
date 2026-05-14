@@ -3,7 +3,7 @@
 namespace hypeJunction\Notifications;
 
 /**
- *
+ * Mass mail entity
  */
 class MassMail extends \ElggObject {
 
@@ -17,5 +17,4 @@ class MassMail extends \ElggObject {
 		parent::initializeAttributes();
 		$this->attributes['subtype'] = self::SUBTYPE;
 	}
-
 }
