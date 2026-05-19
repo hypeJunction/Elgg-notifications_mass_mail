@@ -146,8 +146,8 @@ SETTINGS_VALUES
         echo 'System cache reset and registration enabled.' . PHP_EOL;
 
         // Create testuser for integration/e2e tests.
-        _elgg_services()->session_manager->setLoggedInUser(get_user_by_username('admin'));
-        if (!get_user_by_username('testuser')) {
+        _elgg_services()->session_manager->setLoggedInUser(elgg_get_user_by_username('admin'));
+        if (!elgg_get_user_by_username('testuser')) {
             \$user = new ElggUser();
             \$user->username = 'testuser';
             \$user->email = 'testuser@example.com';
