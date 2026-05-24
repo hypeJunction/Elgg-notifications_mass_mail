@@ -30,8 +30,8 @@
 		}
 	},
 	"autoload": {
-		"psr-0": {
-			"": "classes/"
+		"psr-4": {
+			"hypeJunction\\Notifications\\": "classes/hypeJunction/Notifications/"
 		}
 	},
 	"extra": {
