@@ -54,10 +54,10 @@ class MassMailEntityTest extends IntegrationTestCase {
 		$entity->description = 'Test body';
 		$entity->method = '_preferred';
 
-elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded, &$guid) {
+\elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded, &$guid) {
 			$this->assertNotFalse($entity->save());
 			$guid = $entity->guid;
-			_elgg_services()->entityCache->delete($guid);
+			\_elgg_services()->entityCache->delete($guid);
 			$loaded = get_entity($guid);
 		});
 
@@ -66,7 +66,7 @@ elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded, &$guid) {
 		$this->assertEquals('Test body', $loaded->description);
 		$this->assertEquals('_preferred', $loaded->method);
 
-		elgg_call(ELGG_IGNORE_ACCESS, fn() => $entity->delete());
+		\elgg_call(ELGG_IGNORE_ACCESS, fn() => $entity->delete());
 	}
 
 	/**
@@ -81,16 +81,16 @@ elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded, &$guid) {
 		$entity->title = 'hello';
 		$entity->description = 'world';
 
-elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded) {
+\elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded) {
 			$this->assertNotFalse($entity->save());
-			_elgg_services()->entityCache->delete($entity->guid);
+			\_elgg_services()->entityCache->delete($entity->guid);
 			$loaded = get_entity($entity->guid);
 		});
 
 		$this->assertInstanceOf(MassMail::class, $loaded);
 		$this->assertEquals('notification_mass_mail', $loaded->getSubtype());
 
-		elgg_call(ELGG_IGNORE_ACCESS, fn() => $entity->delete());
+		\elgg_call(ELGG_IGNORE_ACCESS, fn() => $entity->delete());
 	}
 
 	/**
@@ -106,14 +106,14 @@ elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded) {
 		$entity->description = 'd';
 		$entity->method = 'email';
 
-elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded) {
+\elgg_call(ELGG_IGNORE_ACCESS, function () use ($entity, &$loaded) {
 			$this->assertNotFalse($entity->save());
-			_elgg_services()->entityCache->delete($entity->guid);
+			\_elgg_services()->entityCache->delete($entity->guid);
 			$loaded = get_entity($entity->guid);
 		});
 
 		$this->assertEquals('email', $loaded->method);
 
-		elgg_call(ELGG_IGNORE_ACCESS, fn() => $entity->delete());
+		\elgg_call(ELGG_IGNORE_ACCESS, fn() => $entity->delete());
 	}
 }
