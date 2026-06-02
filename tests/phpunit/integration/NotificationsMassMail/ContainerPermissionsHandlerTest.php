@@ -19,11 +19,19 @@ class ContainerPermissionsHandlerTest extends IntegrationTestCase {
 	public function down() {
 	}
 
-	public function getPluginID(): string {
+	/**
+     * @return string
+     */
+    public function getPluginID(): string {
 		return 'notifications_mass_mail';
 	}
 
-	protected function makeHook(string $subtype, $container): Hook {
+	/**
+     * @param string $subtype
+     * @param mixed $container
+     * @return Hook
+     */
+    protected function makeHook(string $subtype, $container): Hook {
 		$hook = $this->getMockBuilder(Hook::class)->getMock();
 		$hook->method('getName')->willReturn('container_permissions_check');
 		$hook->method('getType')->willReturn('object');
@@ -40,33 +48,48 @@ $hook->method('getParam')->willReturnCallback(function ($key, $default = null) u
 		return $hook;
 	}
 
-	public function testReturnsVoidForOtherSubtype(): void {
+	/**
+     * @return void
+     */
+    public function testReturnsVoidForOtherSubtype(): void {
 		$handler = new ContainerPermissionsHandler();
 		$hook = $this->makeHook('blog', \elgg_get_site_entity());
 		$this->assertNull($handler($hook));
 	}
 
-	public function testReturnsVoidWhenContainerNotEntity(): void {
+	/**
+     * @return void
+     */
+    public function testReturnsVoidWhenContainerNotEntity(): void {
 		$handler = new ContainerPermissionsHandler();
 		$hook = $this->makeHook(MassMail::SUBTYPE, null);
 		$this->assertNull($handler($hook));
 	}
 
-	public function testSiteContainerReturnsVoidAllowingDefault(): void {
+	/**
+     * @return void
+     */
+    public function testSiteContainerReturnsVoidAllowingDefault(): void {
 		$handler = new ContainerPermissionsHandler();
 		$hook = $this->makeHook(MassMail::SUBTYPE, \elgg_get_site_entity());
 		// site => return; (void, default value preserved)
 		$this->assertNull($handler($hook));
 	}
 
-	public function testUserContainerDenied(): void {
+	/**
+     * @return void
+     */
+    public function testUserContainerDenied(): void {
 		$handler = new ContainerPermissionsHandler();
 		$user = $this->createUser();
 		$hook = $this->makeHook(MassMail::SUBTYPE, $user);
 		$this->assertFalse($handler($hook));
 	}
 
-	public function testObjectContainerDenied(): void {
+	/**
+     * @return void
+     */
+    public function testObjectContainerDenied(): void {
 		$handler = new ContainerPermissionsHandler();
 		$owner = $this->createUser();
 		$object = $this->createObject(['subtype' => 'blog', 'owner_guid' => $owner->guid]);
@@ -74,7 +97,10 @@ $hook->method('getParam')->willReturnCallback(function ($key, $default = null) u
 		$this->assertFalse($handler($hook));
 	}
 
-	public function testGroupContainerDelegatesToCanEdit(): void {
+	/**
+     * @return void
+     */
+    public function testGroupContainerDelegatesToCanEdit(): void {
 		$handler = new ContainerPermissionsHandler();
 
 		$group = $this->getMockBuilder(\ElggGroup::class)
@@ -88,7 +114,10 @@ $hook->method('getParam')->willReturnCallback(function ($key, $default = null) u
 		$this->assertTrue($handler($hook));
 	}
 
-	public function testGroupContainerDeniedWhenCannotEdit(): void {
+	/**
+     * @return void
+     */
+    public function testGroupContainerDeniedWhenCannotEdit(): void {
 		$handler = new ContainerPermissionsHandler();
 
 		$group = $this->getMockBuilder(\ElggGroup::class)

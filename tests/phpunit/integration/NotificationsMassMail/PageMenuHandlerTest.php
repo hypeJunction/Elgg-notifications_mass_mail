@@ -18,11 +18,18 @@ class PageMenuHandlerTest extends IntegrationTestCase {
 	public function down() {
 	}
 
-	public function getPluginID(): string {
+	/**
+     * @return string
+     */
+    public function getPluginID(): string {
 		return 'notifications_mass_mail';
 	}
 
-	protected function makeHook(array $return): Hook {
+	/**
+     * @param array $return
+     * @return Hook
+     */
+    protected function makeHook(array $return): Hook {
 		$hook = $this->getMockBuilder(Hook::class)->getMock();
 		$hook->method('getName')->willReturn('register');
 		$hook->method('getType')->willReturn('menu:page');
@@ -32,7 +39,10 @@ class PageMenuHandlerTest extends IntegrationTestCase {
 		return $hook;
 	}
 
-	public function testAdminContextAddsMassMailMenuItem(): void {
+	/**
+     * @return void
+     */
+    public function testAdminContextAddsMassMailMenuItem(): void {
 		\elgg_push_context('admin');
 		try {
 			$handler = new PageMenuHandler();
@@ -48,7 +58,10 @@ class PageMenuHandlerTest extends IntegrationTestCase {
 		$this->assertEquals('mass_mail', $result[0]->getName());
 	}
 
-	public function testNonAdminNonGroupContextAddsNothing(): void {
+	/**
+     * @return void
+     */
+    public function testNonAdminNonGroupContextAddsNothing(): void {
 		$handler = new PageMenuHandler();
 		$hook = $this->makeHook(['existing']);
 		$result = $handler($hook);
@@ -56,7 +69,10 @@ class PageMenuHandlerTest extends IntegrationTestCase {
 		$this->assertEquals(['existing'], $result);
 	}
 
-	public function testGroupContextWithoutSettingAddsNothing(): void {
+	/**
+     * @return void
+     */
+    public function testGroupContextWithoutSettingAddsNothing(): void {
 		$plugin = \elgg_get_plugin_from_id('notifications_mass_mail');
 		if ($plugin) {
 			$plugin->setSetting('groups_mass_mail', '0');
@@ -79,7 +95,10 @@ class PageMenuHandlerTest extends IntegrationTestCase {
 		$this->assertEquals([], $result);
 	}
 
-	public function testGroupContextWithSettingAddsMenuItem(): void {
+	/**
+     * @return void
+     */
+    public function testGroupContextWithSettingAddsMenuItem(): void {
 		$plugin = \elgg_get_plugin_from_id('notifications_mass_mail');
 		if (!$plugin) {
 			$this->markTestSkipped('Plugin not installed in test DB');
