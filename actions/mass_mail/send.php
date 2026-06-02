@@ -9,21 +9,18 @@ $description = get_input('description', '');
 $method = get_input('method', '_preferred');
 
 if (empty($title) || empty($description) || empty($method)) {
-	elgg_register_error_message(elgg_echo('notifications:mass_mail:missing_field'));
-	return elgg_redirect(REFERRER);
+	return elgg_error_response(elgg_echo('notifications:mass_mail:missing_field'));
 }
 
 if ($guid) {
 	$entity = get_entity($guid);
 	if (!$entity instanceof MassMail || !$entity->canEdit()) {
-		elgg_register_error_message(elgg_echo('actionunauthorized'));
-		return elgg_redirect(REFERRER);
+		return elgg_error_response(elgg_echo('actionunauthorized'));
 	}
 } else {
 	$container = get_entity($container_guid);
 	if (!$container || !$container->canWriteToContainer(0, 'object', MassMail::SUBTYPE)) {
-		elgg_register_error_message(elgg_echo('actionunauthorized'));
-		return elgg_redirect(REFERRER);
+		return elgg_error_response(elgg_echo('actionunauthorized'));
 	}
 
 	$entity = new MassMail();
@@ -42,10 +39,8 @@ $entity->description = $description;
 $entity->method = $method;
 
 if ($entity->save()) {
-	elgg_register_success_message(elgg_echo('notifications:mass_mail:send:success'));
 	elgg_trigger_event('send', 'object', $entity);
-	return elgg_redirect($entity->getURL());
+	return elgg_ok_response('', elgg_echo('notifications:mass_mail:send:success'), $entity->getURL());
 } else {
-	elgg_register_error_message(elgg_echo('notifications:mass_mail:send:error'));
-	return elgg_redirect(REFERRER);
+	return elgg_error_response(elgg_echo('notifications:mass_mail:send:error'));
 }
