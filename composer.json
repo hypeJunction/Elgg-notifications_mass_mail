@@ -1,6 +1,6 @@
 {
     "name": "hypejunction/notifications_mass_mail",
-    "version": "6.0.0",
+    "version": "6.0.1",
     "type": "elgg-plugin",
     "description": "Mass Mail for Elgg",
     "homepage": "https://github.com/hypeJunction/Elgg-notifications_mass_mail",
