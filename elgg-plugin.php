@@ -5,6 +5,7 @@ use hypeJunction\Notifications\ContainerPermissionsHandler;
 use hypeJunction\Notifications\MassMail;
 use hypeJunction\Notifications\PageMenuHandler;
 use hypeJunction\Notifications\PrepareNotificationHandler;
+use hypeJunction\Notifications\Seeder;
 use hypeJunction\Notifications\SubscriptionsHandler;
 
 return [
@@ -55,6 +56,11 @@ return [
 		'register' => [
 			'menu:page' => [
 				PageMenuHandler::class => [],
+			],
+		],
+		'seeds' => [
+			'database' => [
+				Seeder::class . '::addSeed' => [],
 			],
 		],
 	],
